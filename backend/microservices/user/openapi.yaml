@@ -1,0 +1,172 @@
+openapi: "3.0.0"
+info: 
+  title: E-commerce 
+
+  version: "1.0.0"
+  description: E-commerce Website
+servers:
+  - url: http://localhost:8085
+paths: 
+  /users:
+    get: 
+      tags:
+        - User
+      parameters:
+        - name: 'user'
+          in: header
+          required: true
+          description: User ID token
+          schema:
+            $ref: '#/components/schemas/Token'
+      summary: Get all the users
+      description: Get all the users for Super admin
+      
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "204":
+          description: Successful operation, no data found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is not valid, 1234
+                  users:
+                    type: array
+                    example: []
+        '401':
+          description: Unauthorized 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is not valid, 1234 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User not found
+        "498":
+          description: Authentication token not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is null.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      tags:
+        - User
+      parameters:
+        - name: 'user'
+          in: header
+          required: true
+          description: User ID token
+          schema:
+            $ref: '#/components/schemas/Token'
+      summary: Edit the user
+      description: Updates the user
+      
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  # user:
+                  #   type: object
+                  #   $ref: "#/components/schemas/User"
+                  message:
+                    type: string
+                    example: user edited successfully.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User not found
+        '401':
+          description: Unauthorized 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is not valid, 1234 
+        "498":
+          description: Authentication token not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is null.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+components:
+  schemas:
+    Token:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+            iat:
+              type: string
+            expat:
+              type: string
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string

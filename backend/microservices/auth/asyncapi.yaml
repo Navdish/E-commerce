@@ -1,0 +1,153 @@
+asyncapi: 2.6.0
+
+#Info of the application
+info:
+  title: E-commerce authentication
+  version: '1.0'
+  description: authentication
+
+channels:
+  auth.users_added_complete_data:
+    publish:
+      description: Publish the event to add new user
+      summary: Inform that a new user has been added
+      operationId: UserAddedCompleteData
+      message: 
+        $ref: "#/components/messages/UserSignedUp"
+
+  auth.users_added:
+    publish:
+      description: Publish the event to add new user
+      summary: Inform that a new user has been added
+      operationId: UserAdded
+      message: 
+        $ref: "#/components/messages/UserSignedUp"
+  
+  auth.users_updated:
+    subscribe:
+      description: Subscribe to the event to update user
+      operationId: UserUpdated
+      message: 
+        $ref: "#/components/messages/UserSignedUp"
+
+components:
+  messages:
+    UserSignedUp:
+      name: UserSignedUp
+      title: User added event
+      summary: Inform about a new user added in system
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          uuid:
+            type: string
+            example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f 
+            description: Unique ID for the object
+          fired_at:
+            type: string
+            format: date-time
+            description: Date that the event was fired
+          user:
+            $ref: '#/components/schemas/UserPayload'
+
+    UserAddedCompleteData:
+      name: UserAddedCompleteData
+      title: User added event with full data
+      summary: Inform about a new user added in system with full details
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          uuid:
+            type: string
+            example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f 
+            description: Unique ID for the object
+          fired_at:
+            type: string
+            format: date-time
+            description: Date that the event was fired
+          user:
+            $ref: '#/components/schemas/UserCompletePayload'
+  
+    UserUpdated:
+      name: User updated
+      title: User updated event
+      summary: Change of user details
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UserPayload'
+
+  schemas:
+    UserPayload:
+      title: Signed Up user
+      type: object
+      description: All the data required for user authentication and authorization
+      required:
+        - uuid
+        - name
+        - email
+        - password
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the user
+        role:
+          type: string
+          description: Role of user
+          enum:
+            - USER
+            - RETAILER
+            - RETAILERMANAGER
+            - DELIEVERYPARTNER
+            - DELIVERYMANAGER
+            - SUPERADMIN
+          example: USER
+
+    UserCompletePayload:
+      title: Signed Up user
+      type: object
+      description: All the data required for user authentication and authorization
+      required:
+        - uuid
+        - name
+        - email
+        - password
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the user
+        name:
+          type: string
+          description: User name
+        password:
+          type: string
+          description: The password for the Campus Plattform
+        email:
+          type: string
+          description: An Email Address
+          example: user_name@domain.com
+        role:
+          type: string
+          description: Role of user
+          enum:
+            - USER
+            - RETAILER
+            - RETAILERMANAGER
+            - DELIEVERYPARTNER
+            - DELIVERYMANAGER
+            - SUPERADMIN
+          example: USER
+        createdAt:
+          type: string
+          description: The created date
+          format: date-time
+        updatedAt:
+          type: string
+          description: updated date
+          format: date-time
+      
+      UpdatedUser: 
+        type: object

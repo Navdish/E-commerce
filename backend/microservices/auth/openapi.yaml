@@ -1,0 +1,164 @@
+openapi: "3.0.0"
+info: 
+  title: E-commerce 
+
+  version: "1.0.0"
+  description: E-commerce Website
+servers:
+  - url: http://localhost:8090
+paths: 
+  /auth/login:
+    post:
+      tags:
+       - Auth
+      summary: Login a user
+      description: Creates a new token for the loggedin user
+      
+      requestBody:
+        description: Request to create user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: User loggedin successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Authentication error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User password is wrong
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User not found
+        '422':
+          description: User credentials not provided
+          content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: User credentials not found
+        '498':
+          description: User Token expired/manipulated/malicious
+          content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: Invalid Token
+        '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: Internal server error
+  /auth/signup:
+    post:
+      tags:
+       - Auth
+      summary: Create a new User
+      description: Creates a new user
+      requestBody:
+        description: Request to create user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '409':
+            description: Conflict
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: The provided email already exists
+        '422':
+          description: User credentials not provided
+          content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+        '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+
+components:
+  schemas:
+    Token:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+            iat:
+              type: string
+            expat:
+              type: string
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
