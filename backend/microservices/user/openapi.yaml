@@ -48,16 +48,6 @@ paths:
                   error:
                     type: string
                     example: The provided userID is not valid, 1234 
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: User making the request not found
         "498":
           description: Authentication token not provided
           content:

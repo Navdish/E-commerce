@@ -7,13 +7,20 @@ info:
   description: User Async API
 
 channels:
-  auth.users_added:
+  user.user_added:
     publish:
       description: Publish the event to add new user
       summary: Inform that a new user has been added
       operationId: UserAdded
       message: 
         $ref: "#/components/messages/UserSignedUp"
+  user.user_deleted:
+    publish:
+      description: Publish the event to delete user
+      summary: Inform that a user has been deleted
+      operationId: UserDeleted
+      message: 
+        $ref: "#/components/messages/UserDeleted"
 
 
 components:
@@ -36,6 +43,25 @@ components:
             description: Date that the event was fired
           user:
             $ref: '#/components/schemas/UserPayload'
+
+    UserDeleted:
+        name: UserDeleted
+        title: User deleted event
+        summary: Inform about a user is deleted
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            uuid:
+              type: string
+              example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f 
+              description: Unique ID for the object
+            fired_at:
+              type: string
+              format: date-time
+              description: Date-time that the event was fired
+            user:
+              $ref: '#/components/schemas/UserPayload'
 
 
   schemas:

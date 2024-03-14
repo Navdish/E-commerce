@@ -1,0 +1,129 @@
+asyncapi: 2.6.0
+
+#Info of the application
+info:
+  title: E-commerce Product
+  version: '1.0'
+  description: product Async API
+
+channels:
+  products.products_added:
+    publish:
+      description: Publish the event to add new product 
+      summary: Inform that a new product has been added
+      operationId: ProductAdded
+      message: 
+        $ref: "#/components/messages/ProductAdded"
+
+  product.product_updated:
+    publish:
+      description: Publish the event to update product 
+      summary: Inform that a product has been updated
+      operationId: Productupdated
+      message: 
+        $ref: "#/components/messages/ProductUpdated"
+  
+  product.product_deleted:
+    publish:
+      description: Publish the event to update product 
+      summary: Inform that a product has been updated
+      operationId: Productupdated
+      message: 
+        $ref: "#/components/messages/ProductDeleted"
+  # products.products_updated:
+  #   subscribe:
+  #     description: Subscribe to the event to update product
+  #     operationId: ProductUpdated
+  #     message: 
+  #       $ref: "#/components/messages/Updatedproduct"
+
+  # products.users_updated:
+  #   subscribe:
+  #     description: Subscribe to the event to update user
+  #     operationId: UserUpdated
+  #     message: 
+  #       $ref: "#/components/messages/UserUpdated"
+
+components:
+  messages:
+    ProductAdded:
+      name: ProductAdded
+      title: Product added event
+      summary: Inform about a new product added in system
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          uuid:
+            type: string
+            example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f 
+            description: Unique ID for the object
+          fired_at:
+            type: string
+            format: date-time
+            description: Date that the event was fired
+          user:
+            $ref: '#/components/schemas/Product'
+    
+    ProductUpdated:
+      name: Product updated
+      title: Product updated event
+      summary: Change of product details 
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Product'
+
+    ProductDeleted:
+      name: Product deleted
+      title: Product deleted event
+      summary: Deletion of product
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Product'
+
+    # UserUpdated:
+    #   name: User updated
+    #   title: User updated event
+    #   summary: Change of user details
+    #   contentType: application/json
+    #   payload:
+    #     $ref: '#/components/schemas/UserPayload'
+
+
+  schemas:
+    Order:
+      title: Added product
+      type: object
+      description: All newly added product data
+      required:
+        - retailerId
+        - uuid
+        - name
+        - description
+        - images
+      properties:
+        uuid:
+          type: string
+        productId:
+          type: string
+          $ref: '#/components/schemas/Product'
+        userId:
+          type: string
+          $ref: '#/components/schemas/User'
+        status: 
+            type: string
+            enum:
+                - QUEUED
+                - SHIPPED
+                - STORE
+                - DISPATCHED
+                - RECIEVED
+                - DAMAGED
+                - WRONG
+                - RETURNED
+            default: QUEUED
+        quantity: 
+            type: number
+        price:
+            type: number
+ 

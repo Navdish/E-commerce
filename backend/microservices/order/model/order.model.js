@@ -20,10 +20,14 @@ const Order = mongoose.Schema({
     },
     quantity: {
         type: Number,
-        default: 1
+        required: true,
     },
     price: {
         type: Number,
+        required: true,
+    },
+    images:{
+        type: String,
     }
 }, {timestamps: true})
 
