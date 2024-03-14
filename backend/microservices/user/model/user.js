@@ -28,9 +28,9 @@ const User = mongoose.Schema({
     interest : [{
         type: String,
     }],
-    address : [{
-        type: String,
-    }],
+    address : {
+        type: Object
+    },
     phone : Number
 }, {timestamps: true})
 

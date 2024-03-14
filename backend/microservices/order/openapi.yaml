@@ -1,0 +1,493 @@
+openapi: "3.0.0"
+info: 
+  title: E-commerce Orders
+
+  version: "1.0.0"
+  description: Orders service of E-commerce Website
+servers:
+  - url: http://localhost:9005
+paths: 
+  /orders:
+    get: 
+      tags:
+        - orders
+      parameters:
+        - name: 'token'
+          in: header
+          required: true
+          description: User ID token
+          schema:
+            $ref: '#/components/schemas/Token'
+        - name: 'userId'
+          in: query
+          description: User Id
+          schema:
+            type: string
+      summary: Get all the products/ if userId is provided, get orders of userId
+      description: Get all the products/ if userId is provided, get orders of userId
+      
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Orders"
+        "204":
+          description: Successful operation, no data found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    example: []
+        '401':
+          description: Unauthorized 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is not valid, 1234 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User making the request not found
+        "498":
+          description: Authentication token not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is null.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      tags:
+       - orders
+      summary: Add a new order
+      description: Create a new order
+      parameters:
+        - name: 'token'
+          in: header
+          required: true
+          description: User ID token
+          schema:
+            $ref: '#/components/schemas/Token'
+      requestBody:
+        description: Request to create Product
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId :
+                  type: string
+
+        required: true
+      responses:
+        '201':
+          description: order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '409':
+            description: Conflict
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: The provided order already exists
+        '422':
+          description: User credentials not provided
+          content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+        '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+  /orders/:orderId:
+    put:
+      tags:
+        - orders
+      parameters:
+        - name: 'token'
+          in: header
+          required: true
+          description: User ID token
+          schema:
+            $ref: '#/components/schemas/Token'
+        - name: 'orderId'
+          in: path
+          required: true
+          description: order uuid
+          schema:
+            type: string
+      requestBody:
+        description: Request to update order
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+        required: true
+      summary: Edit the product
+      description: Updates the product
+      
+      responses:
+        '200':
+          description: Order updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  product:
+                    type: object
+                    $ref: "#/components/schemas/Order"
+                  message:
+                    type: string
+                    example: Order edited successfully.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Order not found
+        '401':
+          description: Unauthorized 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is not authorised to make update, 1234 
+        "498":
+          description: Authentication token not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is null.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+    delete:
+      tags:
+        - orders
+      parameters:
+        - name: 'token'
+          in: header
+          required: true
+          description: User token
+          example: "xhuaiuhsiuxh.aixsbisu.sxiabixia"
+          schema:
+            type: object
+            format: JSON
+        - name: 'orderId'
+          in: path
+          required: true
+          description: order uuid
+          example: jkasnjsaanxjakjsxnlas
+          schema:
+            type: string
+      summary: Delete the order
+      description: Deletes the order
+      responses:
+        '200':
+          description: order deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    $ref: "#/components/schemas/Order"
+                  message:
+                    type: string
+                    example: Post deleted successfully.
+        '400':
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided orderId is not valid
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Order not found
+        "498":
+          description: Authentication token not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is null.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+    get: 
+      tags:
+        - orders
+      parameters:
+        - name: 'token'
+          in: header
+          required: true
+          description: User ID token
+          schema:
+            $ref: '#/components/schemas/Token'
+        - name: 'orderId'
+          in: path
+          required: true
+          description: order uuid
+          example: jkasnjsaanxjakjsxnlas
+          schema:
+            type: string
+      summary: Get the specific order
+      description: Get the order from orderId
+      
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        '401':
+          description: Unauthorized 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is not valid, 1234 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User making the request not found
+        "498":
+          description: Authentication token not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided userID is null.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+components:
+  schemas:
+    Token:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+            iat:
+              type: string
+            expat:
+              type: string
+    Product:
+      type: object
+      properties:
+          retailerId:
+            type: string
+          uuid:
+            type: string
+          name:
+            type: string
+          description:
+            type: string
+          images:
+            type: array
+            items:
+              type: string
+          reviews:
+            type: array
+            items:
+              type: string
+          properties:
+            type: object
+          createdAt:
+            type: string
+            description: created date
+            format: date-time
+          updatedAt:
+            type: string
+            description: updated date
+            format: date-time
+      required:
+        - retailerId
+        - uuid
+        - name
+        - description
+        - images
+
+    User:
+      type: object
+      properties:
+        uuid:
+          type: string
+        role: 
+          type: string
+          enum:
+              - USER
+              - RETAILER
+              - RETAILERMANAGER
+              - DELIEVERYPARTNER
+              - DELIVERYMANAGER
+              - SUPERADMIN
+          default: USER
+
+    
+    Order:
+      type: object
+      properties:
+        uuid:
+          type: string
+        productId:
+          type: string
+          $ref: '#/components/schemas/Product'
+        userId:
+          type: string
+          $ref: '#/components/schemas/User'
+        status: 
+            type: string
+            enum:
+                - QUEUED
+                - SHIPPED
+                - STORE
+                - DISPATCHED
+                - RECIEVED
+                - DAMAGED
+                - WRONG
+                - RETURNED
+            default: QUEUED
+        quantity: 
+            type: number
+        price:
+            type: number
+
+    Orders:
+      type: array
+      items:
+        type: object
+        properties:
+          uuid:
+            type: string
+          productId:
+            type: string
+            $ref: '#/components/schemas/Product'
+          userId:
+            type: string
+            $ref: '#/components/schemas/User'
+          status: 
+            type: string
+            enum:
+                - QUEUED
+                - SHIPPED
+                - STORE
+                - DISPATCHED
+                - RECIEVED
+                - DAMAGED
+                - WRONG
+                - RETURNED
+            default: QUEUED
+          quantity: 
+            type: number
+          price:
+            type: number
+          
