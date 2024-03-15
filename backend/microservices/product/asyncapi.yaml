@@ -7,7 +7,7 @@ info:
   description: product Async API
 
 channels:
-  products.add_order:
+  product.add_order:
     publish:
       description: Publish the event to add new order
       summary: publish an event to add new order
