@@ -19,8 +19,11 @@ const User = mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['USER', 'RETAILER', 'RETAILERMANAGER', 'DELIEVERYPARTNER', 'DELIVERYMANAGER', 'SUPERADMIN'],
-        default: 'USER'
+        enum: ['USER', 'RETAILER' ,'ADMIN']
+    },
+    status: {
+        type: String,
+        enum: ['ACTIVE', 'INACTIVE']
     }
 }, {timestamps: true})
 

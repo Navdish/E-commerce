@@ -20,8 +20,13 @@ const User = mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['USER', 'RETAILER', 'RETAILERMANAGER', 'DELIEVERYPARTNER', 'DELIVERYMANAGER', 'SUPERADMIN'],
+        enum: ['USER', 'RETAILER', 'ADMIN'],
         default: 'USER'
+    },
+    status: {
+        type: String,
+        enum: ['ACTIVE', 'INACTIVE'],
+        default: 'ACTIVE'
     },
     language :[{
         type: String,
