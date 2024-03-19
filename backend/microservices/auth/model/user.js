@@ -6,8 +6,7 @@ const User = mongoose.Schema({
         required: true,
     },
     uuid: {
-        type: String,
-        required: true,
+        type: String, 
     },
     email: {
         type: String,
@@ -24,6 +23,10 @@ const User = mongoose.Schema({
     status: {
         type: String,
         enum: ['ACTIVE', 'INACTIVE']
+    },
+    tempStatus: {
+        type: String,
+        enum: ['PENDING', 'SUCCESS']
     }
 }, {timestamps: true})
 

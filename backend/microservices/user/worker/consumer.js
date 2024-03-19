@@ -3,10 +3,7 @@ const exchangeName = 'userExchange';
 const { authProcessor } = require('../processor');
 
 const mapper = {
-    'user_added': authProcessor.createUser,
-    'user_updated': authProcessor.updateUser,
-    'user_status_updated': authProcessor.updateUserStatus,
-    'user_deleted': authProcessor.deleteUser 
+    'user_added': authProcessor.createUser
 }
 
 class Consumer {
