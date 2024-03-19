@@ -4,7 +4,8 @@ const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const CustomError = require('../lib/error');
 // const { sentMsg } = require('../index');
-const {sentMsg} = require('../worker/publisher.js')
+const Producer = require('../worker/publisher.js');
+const publisher = new Producer();
 
 exports.create = async({data})=> {
     const {name, email, password} = data;
@@ -15,7 +16,7 @@ exports.create = async({data})=> {
     // publish the details to the user service 
     console.log(name, email, password);
     try {
-        const message = await sentMsg({name, email, password});
+        const message = await publisher.sentMsg({name, email, password});
     } catch (error) {
         console.log("error :- ", error)
     }
