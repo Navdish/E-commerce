@@ -65,35 +65,11 @@ exports.subUpdateUserStatus = async(data) => {
 
 exports.subDeleteUser = async(data) => {
     const {uuid} = data;
-    
+    const user = User.findOneAndUpdate({uuid}, {status: 'INACTIVE'}, {new: true});
+    if(!user) throw new CustomError("Internal server error", 500);
+    console.log(user);
+    return user;
 }
-
-// exports.createOrder = async (payload) => {
-//     const userId = payload.userId;
-//     const productId = payload.query.productId;
-//     const { stock } = payload.body
-//     if (!stock)
-//         throw new CustomError("Stock is empty in body", 401)
-//     //find
-//     const product = await ProductModel.findById(productId);
-//     if (!product)
-//         throw new CustomError("No data exist for this id", 401)
-//     const uuid = uuidv4();
-//     //order create status pending
-//     const order = await OrderModel.create({ uuid, status: "pending" })
-//     if (!order)
-//         throw new CustomError("Order is not made", 401)
-//     //publish
-//     produce.publishMessage("Order", { product, userId, stock }, "Order")
-//     // timeout -> find by order id status confirm
-//     setTimeout(async () => {
-//         const data = await OrderModel.find({ uuid: uuid });
-//         if (data.status === "confirm")
-//             return { message: "success" }
-//     }, "2000");
-//     //return
-//     throw new CustomError("Order not created", 401)
-// }
 
 
 

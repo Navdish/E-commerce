@@ -1,6 +1,7 @@
 const CustomError = require('../lib/error');
 const {User} = require('../models');
-
+const Producer = require('../worker/producer.js');
+const publisher = new Producer();
 
 exports.fetchAllUsers = async({userId, data})=> {
     const user = await User.findById(userId);
@@ -18,6 +19,11 @@ exports.newUser = async({userId, data})=> {
     // call to ACL for access
     const response = await User.create(data);
     if(!response) throw new CustomError("User not created", 500); //204
+    try {
+        await publisher.sentMsg(response, 'user_added');
+    } catch (error) {
+        console.log("error :-  (error in the user service)", error)
+    }
     return response;
 }
 
@@ -27,6 +33,11 @@ exports.modifyUser = async({userId, data, params})=> {
     // call to ACL for access
     const response = await User.findByIdAndUpdate(params.userId, {data}, {new: true});
     if(!response) throw new CustomError("No users found", 500); //204
+    try {
+        await publisher.sentMsg(response, 'user_updated');
+    } catch (error) {
+        console.log("error :-  (error in the user service)", error)
+    }
     return response;
 }
 
@@ -36,6 +47,11 @@ exports.restoredUser = async({userId, data, params})=> {
     // call to ACL for access for admin only
     const response = await User.findByIdAndUpdate(params.userId, {role : data.role}, {new: true});  // {role: 'ACTIVE'}
     if(!response) throw new CustomError("No users found", 500); //204
+    try {
+        await publisher.sentMsg(response, 'user_status_updated');
+    } catch (error) {
+        console.log("error :-  (error in the user service)", error)
+    }
     return response;
 }
 
@@ -45,6 +61,11 @@ exports.abandonUser = async({userId, data, params})=> {
     // call to ACL for access for admin and the user who created account
     const response = await User.findByIdAndUpdate(params.userId, {role : data.role}, {new: true});  // {role: 'INACTIVE'}
     if(!response) throw new CustomError("No users found", 500); //204
+    try {
+        await publisher.sentMsg(response, 'user_deleted');
+    } catch (error) {
+        console.log("error :-  (error in the user service)", error)
+    }
     return response;
 }
 
@@ -57,7 +78,9 @@ exports.fetchOneUser = async({userId, params})=> {
     return response;
 }
 
-
+exports.create = async(data)=> {
+    
+}
 // router.get('/',  userController.fetchUsers) fetchAllUsers
 // router.post('/',  userController.createUser) newUser
 // router.put('/:userId',  userController.updateUser) modifyUser

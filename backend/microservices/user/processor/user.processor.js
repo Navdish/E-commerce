@@ -1,8 +1,8 @@
 const {userService} = require('../service');
 
-exports.createUser = async (req, res)=>{
+exports.createUser = async (data)=>{
     try {
-      const user = await userService.create({data : req?.body})
+      const user = await userService.create(data)
       res.status(201).json({message : "user added successfully"})
     }
     catch (error) {

@@ -1,9 +1,9 @@
 const amqplib = require('amqplib');
 const exchangeName = 'userExchange';
-const { authProcessor } = require('../processor');
+const { userProcessor } = require('../processor');
 
 const mapper = {
-    'user_added': authProcessor.createUser
+    'user_registered': userProcessor.createUser
 }
 
 class Consumer {
