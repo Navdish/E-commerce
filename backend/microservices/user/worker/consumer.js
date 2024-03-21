@@ -22,6 +22,7 @@ class Consumer {
             if (!this.channel) {
                 await this.createChannel()
             }
+            console.log("Starting the consumer ....")
             await this.channel.assertExchange(exchangeName, 'fanout', {durable: false});
             const q = await this.channel.assertQueue('', {exclusive: true});
             // got to processor 

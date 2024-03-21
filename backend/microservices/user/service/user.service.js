@@ -79,7 +79,14 @@ exports.fetchOneUser = async({userId, params})=> {
 }
 
 exports.create = async(data)=> {
-    
+    const response = await User.create(data);
+    if(!response) throw new CustomError("User not created", 500); //204
+    try {
+        await publisher.sentMsg(response, 'user_added');
+    } catch (error) {
+        console.log("error :-  (error in the user service)", error)
+    }
+    return response;
 }
 // router.get('/',  userController.fetchUsers) fetchAllUsers
 // router.post('/',  userController.createUser) newUser
