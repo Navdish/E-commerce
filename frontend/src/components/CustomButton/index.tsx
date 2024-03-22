@@ -2,7 +2,7 @@ import { Button, ButtonProps } from '@mui/material'
 import React from 'react'
 
 interface CustomButtonProps {
-    sxprops: ButtonProps,
+    sxprops?: ButtonProps,
     variant: "text"|"contained"|"outlined",
     text:string
 }

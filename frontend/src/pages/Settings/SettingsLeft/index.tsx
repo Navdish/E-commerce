@@ -8,34 +8,34 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 function SettingsLeft() {
     return (
         <Box sx={{mr:"17px", ml:"27px", width:"213px"}}>
-        <List aria-labelledby="nested-list-subheader" sx={{width:"169px"}} >
-            <ListItemButton>
-                <ListItemIcon>
-                    <InfoOutlinedIcon />
+        <List aria-labelledby="nested-list-subheader" sx={{width:"243px", p:"0px"}} >
+            <ListItemButton sx={{pl:"0px", pr:"0px", fontSize:"17px"}}>
+                <ListItemIcon sx={{ml:"22px", mr:"18px", minWidth:"14px"}}>
+                    <InfoOutlinedIcon sx={{width:"14px"}} />
                 </ListItemIcon>
-                <ListItemText primary="Personal Information" />
+                <ListItemText primaryTypographyProps={{fontSize:"17px", lineHeight:"22px", fontWeight:"500"}} sx={{width:"169px"}} primary="Personal Information" />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <SecurityOutlinedIcon />
+            <ListItemButton sx={{pl:"0px", pr:"0px"}}>
+                <ListItemIcon sx={{ml:"22px", mr:"18px", minWidth:"14px"}}>
+                    <SecurityOutlinedIcon sx={{width:"14px"}}/>
                 </ListItemIcon>
                 <ListItemText primary="Security" />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <AccountBalanceWalletOutlinedIcon />
+            <ListItemButton sx={{pl:"0px", pr:"0px"}}>
+                <ListItemIcon sx={{ml:"22px", mr:"18px", minWidth:"14px"}}>
+                    <AccountBalanceWalletOutlinedIcon sx={{width:"14px"}}/>
                 </ListItemIcon>
                 <ListItemText primary="Billing & Tax" />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <ContentPasteOutlinedIcon />
+            <ListItemButton sx={{pl:"0px", pr:"0px"}}>
+                <ListItemIcon sx={{ml:"22px", mr:"18px", minWidth:"14px"}}>
+                    <ContentPasteOutlinedIcon sx={{width:"14px"}}/>
                 </ListItemIcon>
                 <ListItemText primary="Plans" />
             </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <ShoppingBagOutlinedIcon />
+            <ListItemButton sx={{pl:"0px", pr:"0px"}}>
+                <ListItemIcon sx={{ml:"22px", mr:"18px", minWidth:"14px"}}>
+                    <ShoppingBagOutlinedIcon sx={{width:"14px"}}/>
                 </ListItemIcon>
                 <ListItemText primary="Linked Shops" />
             </ListItemButton>

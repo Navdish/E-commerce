@@ -12,8 +12,6 @@ const Search = () => {
             <TextField variant='standard' sx={{width:"280px" ,ml:1}} placeholder='Search....' InputProps={{ disableUnderline: true }}/>   
 
             </Stack>
-
-            
         </Paper>
     </div>
   )
