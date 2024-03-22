@@ -11,6 +11,10 @@ const routes: RouteObject[] = [
             {
                 path: 'setting',
                 element: <Settings/>
+            },
+            {
+                path: 'logout',
+                element: <Settings/>
             }
         ]
     }
