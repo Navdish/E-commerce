@@ -1,5 +1,4 @@
 import { Avatar, Box, Divider, Stack, TextField } from '@mui/material'
-import React from 'react'
 import TypographyText from '../../../components/TypographyText'
 import CustomButton from '../../../components/CustomButton'
 
