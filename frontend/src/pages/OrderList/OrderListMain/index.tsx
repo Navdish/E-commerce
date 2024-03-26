@@ -24,7 +24,7 @@ import { visuallyHidden } from '@mui/utils';
 interface Data {
   product: string;
   orderId: string;
-  date: Date;
+  date: string;
   customerName: string;
   status: string;
   amount: number;
@@ -33,7 +33,7 @@ interface Data {
 function createData(
   product: string,
   orderId: string,
-  date: Date,
+  date: string,
   customerName: string,
   status: string,
   amount: number,
@@ -49,19 +49,19 @@ function createData(
 }
 
 const rows = [
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
-  createData('Product 1', '#1111', new Date(), 'ping', 'Pending', 9999),
+  createData('Product 1', '#1111', new Date().toISOString(), 'ping 1', 'Pending', 999),
+  createData('Product 2', '#1112', new Date().toISOString(), 'ping 2', 'Pending', 99929),
+  createData('Product 3', '#1113', new Date().toISOString(), 'ping 3', 'Pending', 99),
+  createData('Product 4', '#1114', new Date().toISOString(), 'ping 4', 'Pending', 9999),
+  createData('Product 5', '#1115', new Date().toISOString(), 'ping 5', 'Pending', 933399),
+  createData('Product 6', '#1116', new Date().toISOString(), 'ping 6', 'Pending', 9992),
+  createData('Product 7', '#1117', new Date().toISOString(), 'ping 7', 'Pending', 99911),
+  createData('Product 8', '#1118', new Date().toISOString(), 'ping 8', 'Pending', 889),
+  createData('Product 9', '#1119', new Date().toISOString(), 'ping 9', 'Pending', 9909),
+  createData('Product 10', '#1120', new Date().toISOString(), 'ping 10', 'Pending', 1999),
+  createData('Product 11', '#1121', new Date().toISOString(), 'ping 11', 'Pending', 90),
+  createData('Product 12', '#1122', new Date().toISOString(), 'ping 12', 'Pending', 1111),
+  createData('Product 13', '#1123', new Date().toISOString(), 'ping 13', 'Pending', 2349),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -88,7 +88,7 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
+function stableSort<T>(array:  T[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -131,6 +131,12 @@ const headCells: readonly HeadCell[] = [
     numeric: true,
     disablePadding: false,
     label: 'Customer Name',
+  },
+  {
+    id: 'status',
+    numeric: true,
+    disablePadding: false,
+    label: 'Status',
   },
   {
     id: 'amount',
@@ -253,9 +259,8 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Data>('product');
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
+  const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (
@@ -269,16 +274,16 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      const newSelected = rows.map((n) => n.orderId);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
+    let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -304,11 +309,9 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
 
-  const isSelected = (id: number) => selected.indexOf(id) !== -1;
+
+  const isSelected = (id: string) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -323,6 +326,15 @@ export default function EnhancedTable() {
     [order, orderBy, page, rowsPerPage],
   );
 
+    // const visibleRows = React.useMemo(
+    //     () =>
+    //         rows.slice(
+    //             page * rowsPerPage,
+    //             page * rowsPerPage + rowsPerPage,
+    //         ),
+    //     [page, rowsPerPage],
+    // );
+
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
@@ -331,7 +343,7 @@ export default function EnhancedTable() {
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={'medium'}
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -343,17 +355,17 @@ export default function EnhancedTable() {
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(row.id);
+                const isItemSelected = isSelected(row.orderId);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
+                    onClick={(event) => handleClick(event, row.orderId)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.id}
+                    key={row.orderId}
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >
@@ -372,19 +384,20 @@ export default function EnhancedTable() {
                       scope="row"
                       padding="none"
                     >
-                      {row.name}
+                      {row.product}
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
+                    <TableCell align="right">{row.orderId}</TableCell>
+                    <TableCell align="right">{row.date}</TableCell>
+                    <TableCell align="right">{row.customerName}</TableCell>
+                    <TableCell align="right">{row.status}</TableCell>
+                    <TableCell align="right">{row.amount}</TableCell>
                   </TableRow>
                 );
               })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: (53) * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -403,10 +416,7 @@ export default function EnhancedTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+      
     </Box>
   );
 }
