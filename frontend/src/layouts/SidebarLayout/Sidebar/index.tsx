@@ -55,7 +55,7 @@ function Sidebar() {
 
           <Box sx={{width:"268px", height:"46.12px", mt:"28px", mb:"28px", display:"flex"}}>
               <Box sx={{display:"flex", height:"100%", alignItems:"center", ml:'28px'}}>
-                <img src={logo}/>
+                <img src={logo} alt=""/>
                   <Box sx={{fontSize:"22px", fontWeight:'600', lineHeight:"33px", fontStyle:"normal", fontFamily:"Inter", mr:"5px"}} >
                       Flight Ease
                   </Box>
@@ -165,6 +165,16 @@ function Sidebar() {
                 <EventAvailableIcon sx={{mr:"5px"}}/>
                 <Typography >
                     All Products
+                </Typography>
+              </Box>
+            </NavLink>
+          </Box>
+          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+            <NavLink to="/order_list" style={activeState}>
+              <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
+                <EventAvailableIcon sx={{mr:"5px"}}/>
+                <Typography >
+                    Order List
                 </Typography>
               </Box>
             </NavLink>

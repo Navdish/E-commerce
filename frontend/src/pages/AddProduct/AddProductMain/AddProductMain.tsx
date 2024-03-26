@@ -1,7 +1,5 @@
 import { Autocomplete, Box, Checkbox, Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { FC, useState } from "react";
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import TypographyText from "../../../components/TypographyText";
 import { FileUploader } from 'react-drag-drop-files'
 import DragDrop from '../../../components/DragDrop'
@@ -11,6 +9,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CustomButton from '../../../components/CustomButton'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import LinearDeterminate from "../../../components/Loader";
+import styles from './AddProduct.module.css'
 const fileTypes = ["JPG", "PNG"];
 
 const categories = [
@@ -22,10 +21,6 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const AddProductMain: FC = () => {
-    const Item = styled(Paper)(({ theme }) => ({
-        padding: '0px',
-        textAlign: 'center',
-      }));
 
       const [file, setFile] = useState<File[]>([]);
       const [imageUrls, setImageUrls] = useState<string[]>([]);
@@ -118,7 +113,7 @@ const AddProductMain: FC = () => {
         </Grid>
         <Grid item xs={5.5} >
           <Box sx={{backgroundColor:"#c8c8c8", height:"428px",  boxSizing:"border-box", borderRadius:"0.8rem"}}>
-            {imageUrls && imageUrls.length > 0 && <img src={imageUrls[0]} style={{height:"100%", width:"100%",  borderRadius:"0.8rem"}}/>}
+            {imageUrls && imageUrls.length > 0 && <img src={imageUrls[0]} style={{height:"100%", width:"100%",  borderRadius:"0.8rem"}} alt=""/>}
           </Box>
           <Stack>
             <Stack py={2} gap={1} >

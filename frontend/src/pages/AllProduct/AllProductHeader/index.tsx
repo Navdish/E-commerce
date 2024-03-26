@@ -1,9 +1,11 @@
 import { FC } from "react"
 import HeaderBreadcrumb from "../../../components/HeaderBreadcrumb"
-import { Box, Button, Stack, Switch } from "@mui/material"
+import { Box,  Button,  IconButton, Stack } from "@mui/material"
 import CustomButton from "../../../components/CustomButton"
 import { Link } from "react-router-dom"
 import TypographyText from "../../../components/TypographyText"
+import ViewListIcon from '@mui/icons-material/ViewList';
+import GridViewIcon from '@mui/icons-material/GridView';
 
 interface PropsType {
     setView: any
@@ -30,9 +32,15 @@ const AllProductHeader = (props: PropsType) => {
                 }}}}/>
                 </Link>
                 <Stack direction={'row'} alignItems={'center'}>
-                    <Switch onChange={(event) => {
+                    {/* <Switch onChange={(event) => {
                         props.setView(event.target.checked)
-                    }} />
+                    }} /> */}
+                    <IconButton onClick={()=> {
+                        props.setView(false);
+                    }}><ViewListIcon/></IconButton>
+                    <IconButton onClick={()=> {
+                        props.setView(true);
+                    }}><GridViewIcon/></IconButton>
                 </Stack>
             </Box>
         </Box>

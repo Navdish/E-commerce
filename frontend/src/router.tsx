@@ -3,6 +3,8 @@ import { RouteObject } from 'react-router';
 import Settings from "./pages/Settings";
 import AllProduct from "./pages/AllProduct";
 import AddProduct from "./pages/AddProduct";
+import OrderList from "./pages/OrderList";
+import OrderDetails from "./pages/OrderDetails";
 
 
 const routes: RouteObject[] = [
@@ -31,6 +33,19 @@ const routes: RouteObject[] = [
                     }
                 ]
             },
+            {
+                path: 'order_list',
+                children: [
+                    {
+                        path: '',
+                        element: <OrderList />
+                    },
+                    {
+                        path: 'order_details',
+                        element: <OrderDetails/>
+                    }
+                ]            
+            }
         ]
     }
     
