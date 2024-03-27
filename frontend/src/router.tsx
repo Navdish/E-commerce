@@ -5,6 +5,8 @@ import AllProduct from "./pages/AllProduct";
 import AddProduct from "./pages/AddProduct";
 import OrderList from "./pages/OrderList";
 import OrderDetails from "./pages/OrderDetails";
+import MyOrderList from "./pages/MyOrderList";
+import MyOrderDetails from "./pages/MyOrderDetails";
 
 
 const routes: RouteObject[] = [
@@ -43,6 +45,19 @@ const routes: RouteObject[] = [
                     {
                         path: 'order_details',
                         element: <OrderDetails/>
+                    }
+                ]            
+            },
+            {
+                path: 'my_order',
+                children: [
+                    {
+                        path: '',
+                        element: <MyOrderList />
+                    },
+                    {
+                        path: 'my_order_details',
+                        element: <MyOrderDetails/>
                     }
                 ]            
             }

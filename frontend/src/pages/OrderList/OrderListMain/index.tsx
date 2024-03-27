@@ -20,6 +20,8 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from 'react-router-dom';
 
 interface Data {
   product: string;
@@ -197,7 +199,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
               ) : null}
             </TableSortLabel>
           </TableCell>
+          
         ))}
+        <TableCell
+        align={'right'}>
+            Info
+        </TableCell>
       </TableRow>
     </TableHead>
   );
@@ -262,7 +269,7 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  const navigate = useNavigate();
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof Data,
@@ -391,6 +398,7 @@ export default function EnhancedTable() {
                     <TableCell align="right">{row.customerName}</TableCell>
                     <TableCell align="right">{row.status}</TableCell>
                     <TableCell align="right">{row.amount}</TableCell>
+                    <TableCell align="right"><IconButton onClick={() => navigate('/order_list/order_details')}><InfoIcon/></IconButton></TableCell>
                   </TableRow>
                 );
               })}

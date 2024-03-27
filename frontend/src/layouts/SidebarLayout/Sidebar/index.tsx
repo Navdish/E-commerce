@@ -73,7 +73,7 @@ function Sidebar() {
             </NavLink>
           </Box>
 
-          <List
+          {/* <List
                     component="nav"
                     aria-labelledby="nested-list-subheader"
                 >
@@ -125,7 +125,7 @@ function Sidebar() {
                             
                         </List>
                     </Collapse>
-          </List>
+          </List> */}
 
           <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
             <NavLink to="/orders" style={activeState}>
@@ -144,6 +144,17 @@ function Sidebar() {
                 <SellOutlinedIcon sx={{mr:"5px"}}/>
                 <Typography >
                     Customers
+                </Typography>
+              </Box>
+            </NavLink>
+          </Box>
+
+          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+            <NavLink to="/my_order" style={activeState}>
+              <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
+                <SellOutlinedIcon sx={{mr:"5px"}}/>
+                <Typography >
+                    My Orders
                 </Typography>
               </Box>
             </NavLink>
