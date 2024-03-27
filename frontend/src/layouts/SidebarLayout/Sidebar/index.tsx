@@ -61,9 +61,19 @@ function Sidebar() {
                   </Box>
               </Box>
           </Box>
+          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+            <NavLink to="/" style={activeState}>
+              <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
+                <SellOutlinedIcon sx={{mr:"5px"}}/>
+                <Typography >
+                    Home
+                </Typography>
+              </Box>
+            </NavLink>
+          </Box>
 
           <Box sx={{width:"268px", height:"46.12px", mt:"12px", display:"flex"}}>
-            <NavLink to="/" style={activeState}>
+            <NavLink to="/dashboard" style={activeState}>
               <Box sx={{display:"flex", height:"100%", alignItems:"center", ml:'28px'}}>
                 <DashboardOutlinedIcon sx={{mr:"5px"}}/>
                   <Typography  >
@@ -170,6 +180,7 @@ function Sidebar() {
               </Box>
             </NavLink>
           </Box>
+
           <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
             <NavLink to="/all_products" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>

@@ -7,6 +7,7 @@ import OrderList from "./pages/OrderList";
 import OrderDetails from "./pages/OrderDetails";
 import MyOrderList from "./pages/MyOrderList";
 import MyOrderDetails from "./pages/MyOrderDetails";
+import Home from "./pages/Home";
 
 
 const routes: RouteObject[] = [
@@ -17,6 +18,10 @@ const routes: RouteObject[] = [
             {
                 path: 'setting',
                 element: <Settings/>
+            },
+            {
+                path: '',
+                element: <Home/>
             },
             {
                 path: 'logout',
