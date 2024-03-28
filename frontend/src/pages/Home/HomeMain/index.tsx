@@ -4,6 +4,8 @@ import Carousel from 'react-material-ui-carousel'
 import carousel3 from '../../../assets/images/carousel3.png'
 import carousel1 from '../../../assets/images/carousel1.png'
 import CategoryComponent from '../../../components/CategoryComponent'
+import Categories from '../Categories'
+import ProductList from '../ProductList'
 
 function Item(props: any)
 {
@@ -33,7 +35,10 @@ const HomeMain: FC = () => {
             }
             </Carousel>
             <Box >
-                <CategoryComponent/>
+                <Categories/>
+            </Box>
+            <Box>
+                <ProductList/>
             </Box>
         </Box>
     )
