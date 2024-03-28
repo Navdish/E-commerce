@@ -21,7 +21,7 @@ function Sidebar() {
   const activeState = ({ isActive }: { isActive: boolean }) => {
     return {
       borderRadius: '0.4rem',
-      width:"100%",
+      width:"calc(100% - 17.28%)",
       color: isActive ? "white" : "black",
       backgroundColor: isActive ? "#4F80E1" : "white",
       fontWeight: "400",
@@ -41,7 +41,7 @@ function Sidebar() {
   
     return (
       <>
-        <Box sx={{ width:"22.55694vw", borderRight:"1px solid #E6E6E6", minHeight: '100vh', backgroundColor:'white', zIndex:"1", display:"flex", flexDirection:"column", alignItems:"center"}}>
+        <Box sx={{ width:"22.50vw", borderRight:"1px solid #E6E6E6", minHeight: '100vh', backgroundColor:'white', zIndex:"1", display:"flex", flexDirection:"column", alignItems:"center"}}>
           {/* <Box>
             <SidebarButton
               variant='outlined'
@@ -53,15 +53,15 @@ function Sidebar() {
             />
           </Box> */}
 
-          <Box sx={{width:"268px", height:"46.12px", mt:"28px", mb:"28px", display:"flex"}}>
-              <Box sx={{display:"flex", height:"100%", alignItems:"center", ml:'28px'}}>
+          <Box sx={{width:"100%", height:"46.12px", m:"28px", display:"flex"}}>
+              <Box sx={{display:"flex", height:"100%", alignItems:"center", ml:'17.28%', justifyContent:"center"}}>
                 <img src={logo} alt=""/>
                   <Box sx={{fontSize:"22px", fontWeight:'600', lineHeight:"33px", fontStyle:"normal", fontFamily:"Inter", mr:"5px"}} >
                       Flight Ease
                   </Box>
               </Box>
           </Box>
-          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+          <Box sx={{width:"100%", height:"46.12px", mt:"28px", display:"flex", justifyContent:"center"}}>
             <NavLink to="/" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <SellOutlinedIcon sx={{mr:"5px"}}/>
@@ -72,7 +72,7 @@ function Sidebar() {
             </NavLink>
           </Box>
 
-          <Box sx={{width:"268px", height:"46.12px", mt:"12px", display:"flex"}}>
+          <Box sx={{width:"100%", height:"46.12px", mt:"12px", display:"flex", justifyContent:"center"}}>
             <NavLink to="/dashboard" style={activeState}>
               <Box sx={{display:"flex", height:"100%", alignItems:"center", ml:'28px'}}>
                 <DashboardOutlinedIcon sx={{mr:"5px"}}/>
@@ -137,7 +137,7 @@ function Sidebar() {
                     </Collapse>
           </List> */}
 
-          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+          <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
             <NavLink to="/orders" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <AssessmentOutlinedIcon sx={{mr:"5px"}}/>
@@ -148,7 +148,7 @@ function Sidebar() {
             </NavLink>
           </Box>
 
-          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+          <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
             <NavLink to="/customers" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <SellOutlinedIcon sx={{mr:"5px"}}/>
@@ -159,7 +159,7 @@ function Sidebar() {
             </NavLink>
           </Box>
 
-          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+          <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
             <NavLink to="/my_order" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <SellOutlinedIcon sx={{mr:"5px"}}/>
@@ -170,7 +170,7 @@ function Sidebar() {
             </NavLink>
           </Box>
 
-          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+          <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
             <NavLink to="/setting" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <EventAvailableIcon sx={{mr:"5px"}}/>
@@ -181,7 +181,7 @@ function Sidebar() {
             </NavLink>
           </Box>
 
-          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+          <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
             <NavLink to="/all_products" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <EventAvailableIcon sx={{mr:"5px"}}/>
@@ -191,7 +191,7 @@ function Sidebar() {
               </Box>
             </NavLink>
           </Box>
-          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+          <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
             <NavLink to="/order_list" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <EventAvailableIcon sx={{mr:"5px"}}/>
@@ -201,7 +201,7 @@ function Sidebar() {
               </Box>
             </NavLink>
           </Box>
-          <Box sx={{width:"268px", height:"46.12px", mt:"10px", display:'flex'}}>
+          <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
             <NavLink to="/logout" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <LogoutIcon/>

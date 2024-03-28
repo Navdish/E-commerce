@@ -1,39 +1,11 @@
-import * as React from 'react';
-import './SignUp.css'
 import Box from '@mui/system/Box';
-import { InputLabel, Link, Typography } from '@mui/material';
-import PasswordAdornments from '../../components/PasswordInput'
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Button from '@mui/material/Button';
-import { useState } from 'react';
-import {useSelector} from 'react-redux' 
-import {useNavigate} from 'react-router-dom';
-import { createUser } from '../../features/auth/auth.action';
-import { RootState } from '../../app/store';
-import { useAppDispatch } from '../../app/hooks'
 import FormField from '../../components/FormField/FormField';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import {FormData, UserSchema} from './types';
+
 export default function Signup(){
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState(""); 
-
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const isLoading = useSelector((state : RootState)=> state.user.isLoading);
-    const error = useSelector((state: RootState)=> state.user.error);
-
-    const [emailError, setEmailError] = useState<string>("");
-    const [nameError, setNameError] = useState<string>("");
-    const [checkName, setCheckName] = useState<boolean>(false);
-    const [checkEmail, setCheckEmail] = useState<boolean>(false);
-    const [checkPass, setCheckPass] = useState<boolean>(false);
-
-
-    
-    
     // const handleSubmit = async(e: React.MouseEvent<HTMLElement>) => {
     //     e.preventDefault();
     //     console.log(checkEmail, checkPass, checkName);
@@ -51,27 +23,34 @@ export default function Signup(){
         register,
         handleSubmit,
         formState: { errors },
-        setError,
       } = useForm<FormData>({
         resolver: zodResolver(UserSchema), // Apply the zodResolver
-      });
+    });
+
+    const onSubmit = async (data: FormData) => {
+        console.log("SUCCESS", data);
+    }
     
     return (
         <Box>
            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid col-auto">
-                <h1 className="text-3xl font-bold mb-4">
-                    Zod & React-Hook-Form
-                </h1>
+                
                 <FormField
-                    type="email"
+                    type="text"
                     placeholder="Email"
                     name="email"
                     register={register}
                     error={errors.email}
                 />
 
-                
+                <FormField
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    register={register}
+                    error={errors.name}
+                />
 
                 <FormField
                     type="password"

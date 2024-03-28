@@ -15,43 +15,43 @@ interface PasswordAdornmentsProps {
 }
 
 export default function PasswordAdornments({password, setPassword, setCheckPass}: PasswordAdornmentsProps) {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  // const [showPassword, setShowPassword] = useState<boolean>(false);
+  // const [errorMessage, setErrorMessage] = useState<string>("");
+  // const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event : React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword = (event : React.MouseEvent<HTMLElement>) => {
+  //   event.preventDefault();
+  // };
 
-  const User = z.object({
-    password: z.string().min(6, { message: "Must be 6 or more characters long" }),
-  });
+  // const User = z.object({
+  //   password: z.string().min(6, { message: "Must be 6 or more characters long" }),
+  // });
 
-  const validate = (value: string) => {
-    setPassword(value);
-    if (
-        validator.isStrongPassword(value, {
-            minLength: 6,
-            minLowercase: 1,
-            minUppercase: 1,
-            minNumbers: 1,
-            minSymbols: 1,
-        })
-    ) {
-        console.log("weak");
-        setErrorMessage("");
-        setCheckPass(true)
-    } else {
-        setErrorMessage("Is Not a valid Password");
-        setCheckPass(false)
-    }
-  };
+  // const validate = (value: string) => {
+  //   setPassword(value);
+  //   if (
+  //       validator.isStrongPassword(value, {
+  //           minLength: 6,
+  //           minLowercase: 1,
+  //           minUppercase: 1,
+  //           minNumbers: 1,
+  //           minSymbols: 1,
+  //       })
+  //   ) {
+  //       console.log("weak");
+  //       setErrorMessage("");
+  //       setCheckPass(true)
+  //   } else {
+  //       setErrorMessage("Is Not a valid Password");
+  //       setCheckPass(false)
+  //   }
+  // };
 
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '100%'}}>
             
-            <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
+            {/* <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
             <OutlinedInput
                 id="outlined-adornment-password"
                 type={showPassword ? 'text' : 'password'}
@@ -83,7 +83,7 @@ export default function PasswordAdornments({password, setPassword, setCheckPass}
                 </InputAdornment>
                 }
             />
-            {errorMessage && <Typography sx={{ color: "red", mt:"-12px", mb:"-12px" }}>{errorMessage}</Typography>}
+            {errorMessage && <Typography sx={{ color: "red", mt:"-12px", mb:"-12px" }}>{errorMessage}</Typography>} */}
     </Box>
   );
 }

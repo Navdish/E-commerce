@@ -8,6 +8,7 @@ import OrderDetails from "./pages/OrderDetails";
 import MyOrderList from "./pages/MyOrderList";
 import MyOrderDetails from "./pages/MyOrderDetails";
 import Home from "./pages/Home";
+import Signup from "./pages/SignUp";
 
 
 const routes: RouteObject[] = [
@@ -18,6 +19,10 @@ const routes: RouteObject[] = [
             {
                 path: 'setting',
                 element: <Settings/>
+            },
+            {
+                path: 'signup',
+                element: <Signup/>
             },
             {
                 path: '',

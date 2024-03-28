@@ -1,11 +1,10 @@
 import { z, ZodType } from "zod"; // Add new import
- 
+
 import { FieldError, UseFormRegister } from "react-hook-form";
 
 export type FormData = {
     email: string;
-    githubUrl: string;
-    yearsOfExperience: number;
+    name: string;
     password: string;
     confirmPassword: string;
   };
@@ -25,7 +24,7 @@ export type FormData = {
   | "password"
   | "confirmPassword";
 
-export declare const UserSchema = z
+export const UserSchema = z
   .object({
     name: z.string().min(1, {message: "Please enter your name"}),
     email: z.string().email(),

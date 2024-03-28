@@ -41,7 +41,7 @@ const steps = [
 ];
 
 export default function OrderStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(1);
 
   
 

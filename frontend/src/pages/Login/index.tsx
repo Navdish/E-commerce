@@ -1,7 +1,7 @@
 import { Button, Divider, FormControl, Input, InputAdornment, InputLabel, Link, MenuItem, OutlinedInput, Select, Stack, TextField, Typography } from "@mui/material";
 import './Login.css'
 import Box from '@mui/system/Box';
-import PasswordAdornments from "../../components/PasswordInput";
+// import PasswordAdornments from "../../components/PasswordInput";
 import {  useSelector } from "react-redux";
 import { useState } from "react";
 import { login } from '../../features/auth/auth.action';
@@ -108,7 +108,7 @@ function Login(){
                         onChange={(e)=> setEmail(e.target.value)}
                     />
                     </Box>
-                    <PasswordAdornments password = {password} setPassword = {setPassword} setCheckPass ={setCheckPass}/>
+                    {/* <PasswordAdornments password = {password} setPassword = {setPassword} setCheckPass ={setCheckPass}/> */}
                     
 
                     <Button
