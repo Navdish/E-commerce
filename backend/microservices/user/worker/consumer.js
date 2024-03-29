@@ -1,4 +1,4 @@
-const amqplib = require('amqplib');
+const amqp = require('amqplib');
 const exchangeName = 'userExchange';
 const { userProcessor } = require('../processor');
 
@@ -28,19 +28,20 @@ class Consumer {
             // got to processor 
             this.channel.bindQueue(q.queue, exchangeName, ''); // routing key
             this.channel.consume(q.queue, async(message) => {
-                if(message.content) console.log(" the message is : ", message?.content?.toString());
-                const signature = message?.properties?.type;
-                if(signature){
-                    try {
-                        const data = JSON.parse(message?.content?.toString());
-                        console.log("user details",data.message.user);
-                        await mapper[signature](data.message.user);
-                        channel.ack(message);
-                    } catch (error) {
-                        console.log(error.message);
-                        channel.nack(message, false, false);
-                    }
-                }
+                if(message.content) console.log(" the message is : ", message?.content);
+                const signature = message?.properties
+                console.log("signature", signature)
+                // if(signature){
+                //     try {
+                //         const data = JSON.parse(message?.content);
+                //         console.log("user details",data.user);
+                //         await mapper[signature](data.user);
+                //         channel.ack(message);
+                //     } catch (error) {
+                //         console.log(error.message);
+                //         channel.nack(message, false, false);
+                //     }
+                // }
             })
         } catch (error) {
             console.log(error, "connection not created..");

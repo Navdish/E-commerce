@@ -1,5 +1,5 @@
 const CustomError = require('../lib/error');
-const {User} = require('../models');
+const {User} = require('../model');
 const Producer = require('../worker/producer.js');
 const publisher = new Producer();
 

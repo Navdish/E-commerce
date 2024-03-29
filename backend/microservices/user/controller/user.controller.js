@@ -11,7 +11,7 @@ exports.fetchUsers = async(req, res)=> {
     }
 }
 
-exports.createuser = async(req, res)=> {
+exports.createUser = async(req, res)=> {
     try {
         const user = await userService.newUser({user_id : req?.user?.id, data : req?.body});
         res.status(200).json({message : 'user created successfully'})

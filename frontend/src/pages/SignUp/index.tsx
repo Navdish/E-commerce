@@ -5,6 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import signupPic from '../../assets/images/singupPic.png'
 import {FormData, UserSchema} from './types';
 import { Button, Paper, Stack, Typography } from '@mui/material';
+import { useAppDispatch } from '../../app/hooks';
+import { createUser } from '../../features/auth/auth.action';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup(){
     // const handleSubmit = async(e: React.MouseEvent<HTMLElement>) => {
@@ -19,17 +22,21 @@ export default function Signup(){
     //         });
     //     }
     // };   
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     
     const {
         register,
         handleSubmit,
         formState: { errors },
       } = useForm<FormData>({
-        resolver: zodResolver(UserSchema), // Apply the zodResolver
+        resolver: zodResolver(UserSchema),
     });
 
     const onSubmit = async (data: FormData) => {
-        console.log("SUCCESS", data);
+        dispatch(createUser(data)).then((response)=> {
+            if(response.payload) navigate("/Login");
+        });
     }
     
     return (

@@ -1,5 +1,5 @@
-const amqplib = require('amqplib');
-const exchangeName = 'authExchange';
+const amqp = require('amqplib');
+const exchangeName = 'userExchange';
 const { v4: uuidv4 } = require('uuid');
 
 class Producer {

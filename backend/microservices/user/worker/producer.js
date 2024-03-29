@@ -1,4 +1,4 @@
-const amqplib = require('amqplib');
+const amqp = require('amqplib');
 const exchangeName = 'userExchange';
 const { v4: uuidv4 } = require('uuid');
 

@@ -23,9 +23,9 @@ export const createUser = createAsyncThunk(
 )
 
 interface loginProps {
-        email: string,
-        password : string,
-        role: string
+    email: string,
+    password : string,
+    role: string
 }
 
 export const login = createAsyncThunk(

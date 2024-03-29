@@ -1,4 +1,4 @@
-const amqplib = require('amqplib');
+const amqp = require('amqplib');
 const exchangeName = 'userExchange';
 const { authProcessor } = require('../processor');
 

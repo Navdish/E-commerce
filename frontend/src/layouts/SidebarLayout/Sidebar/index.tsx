@@ -1,20 +1,10 @@
-import { Box, Typography, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Box, Typography} from "@mui/material";
+import { NavLink, useNavigate } from "react-router-dom";
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import './Sidebar.module.css'
 import logo from '../../../assets/svg/logo.svg'
-import logout from '../../../assets/svg/logout.svg'
 import LogoutIcon from '@mui/icons-material/Logout';
-import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
-import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
-import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
-import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
-import React from "react";
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ThreePOutlinedIcon from '@mui/icons-material/ThreePOutlined';
-import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
 
 function Sidebar() {
@@ -29,29 +19,12 @@ function Sidebar() {
       lineHeight:"16px"
     };
   };
-  const [open, setOpen] = React.useState(true);
-  const [open2, setOpen2] = React.useState(true);
-
-    const handleClick = () => {
-        setOpen(!open);
-    };
-    const handleClick2 = () => {
-      setOpen2(!open2);
-    };
   
+  const navigate = useNavigate();
     return (
       <>
         <Box sx={{ width:"22.50vw", borderRight:"1px solid #E6E6E6", minHeight: '100vh', backgroundColor:'white', zIndex:"1", display:"flex", flexDirection:"column", alignItems:"center"}}>
-          {/* <Box>
-            <SidebarButton
-              variant='outlined'
-              content="Dashboard"
-              icon={<DashboardOutlinedIcon/>}
-              iconProp={{sx:{height:'32px' , width:'32px'}}}
-              textProp={{sx:{fontsize:'22px'}}}
-              buttonProps={{sx: {width:'268px', height:'46.12px'}}}
-            />
-          </Box> */}
+          
 
           <Box sx={{width:"100%", height:"46.12px", m:"28px", display:"flex"}}>
               <Box sx={{display:"flex", height:"100%", alignItems:"center", ml:'17.28%', justifyContent:"center"}}>
@@ -137,7 +110,7 @@ function Sidebar() {
                     </Collapse>
           </List> */}
 
-          <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
+          {/* <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
             <NavLink to="/orders" style={activeState}>
               <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <AssessmentOutlinedIcon sx={{mr:"5px"}}/>
@@ -157,7 +130,7 @@ function Sidebar() {
                 </Typography>
               </Box>
             </NavLink>
-          </Box>
+          </Box> */}
 
           <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
             <NavLink to="/my_order" style={activeState}>
@@ -202,14 +175,12 @@ function Sidebar() {
             </NavLink>
           </Box>
           <Box sx={{width:"100%", height:"46.12px", mt:"10px", display:'flex', justifyContent:"center"}}>
-            <NavLink to="/logout" style={activeState}>
-              <Box sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
+              <Box component='button' onClick={()=> {localStorage.clear(); navigate('/signup')}} sx={{display:'flex', height:"100%", alignItems:"center", ml:'28px'}}>
                 <LogoutIcon/>
                 <Typography sx={{ml:"5px"}}>
                     Logout
                 </Typography>
               </Box>
-            </NavLink>
           </Box>
         </Box>
       </>
