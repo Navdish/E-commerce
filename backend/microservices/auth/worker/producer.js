@@ -22,8 +22,8 @@ class Producer {
             const user = data;
             const properties = { type: signature };
             const message = { uuid: uuidv4(), user: user, firedAt: new Date()}
-            this.channel.publish(exchangeName, '', Buffer.from(JSON.stringify(message)), properties);
-            console.log("sent", message);
+            const res = await this.channel.publish(exchangeName, '', Buffer.from(JSON.stringify(message)), properties);
+            console.log("sent",res,  message);
         } catch (error) {
             console.log(error, "connection not created..");
         }

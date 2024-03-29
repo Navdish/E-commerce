@@ -21,13 +21,13 @@ class Producer {
             await this.channel.assertExchange(exchangeName, 'fanout', {durable: false});
             const user = data;
             const properties = { type: signature };
+            console.log("producer signature is ", signature, "Exchange is ", exchangeName);
             const message = { uuid: uuidv4(), user: user, firedAt: new Date()}
-            this.channel.publish(exchangeName, '', Buffer.from(JSON.stringify(message)), properties);
-            console.log("sent", message);
+            const res = await this.channel.publish(exchangeName, '', Buffer.from(JSON.stringify(message)), properties);
+            console.log("sent",res,  message);
         } catch (error) {
             console.log(error, "connection not created..");
         }
     }
-
 }
 module.exports = Producer;

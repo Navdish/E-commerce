@@ -2,6 +2,7 @@ const CustomError = require('../lib/error');
 const {User} = require('../model');
 const Producer = require('../worker/producer.js');
 const publisher = new Producer();
+const { v4: uuidv4 } = require('uuid');
 
 exports.fetchAllUsers = async({userId, data})=> {
     const user = await User.findById(userId);
@@ -79,7 +80,7 @@ exports.fetchOneUser = async({userId, params})=> {
 }
 
 exports.create = async(data)=> {
-    const response = await User.create(data);
+    const response = await User.create({...data, uuid: uuidv4()});
     if(!response) throw new CustomError("User not created", 500); //204
     try {
         await publisher.sentMsg(response, 'user_added');

@@ -26,22 +26,33 @@ class Consumer {
                 await this.createChannel()
             }
             await this.channel.assertExchange(exchangeName, 'fanout', {durable: false});
-            const q = await this.channel.assertQueue('', {exclusive: true});
+            const q = await this.channel.assertQueue('authQueue', {exclusive: true});
             // got to processor 
             this.channel.bindQueue(q.queue, exchangeName, ''); // routing key
+            console.log("queue name is ",q.queue);
             this.channel.consume(q.queue, async(message) => {
-                if(message.content) console.log(" the message is : ", message?.content?.toString());
+                console.log("queue name is ", q.queue);
+                if(message.content) console.log(" the message is................: ", message?.content?.toString());
                 const signature = message?.properties?.type;
-                if(signature){
+                console.log("consumer signature is ", signature);
+                if(signature && mapper[signature]){
                     try {
                         const data = JSON.parse(message?.content?.toString());
-                        console.log("user details",data.message.user);
-                        await mapper[signature](data.message.user);
+                        console.log("user details",data.user);
+                        await mapper[signature](data.user);
                         channel.ack(message);
                     } catch (error) {
-                        console.log(error.message);
+                        console.log("authh",error.message);
                         channel.nack(message, false, false);
                     }
+                }
+                else {
+                    console.log("Ignore");
+                    if (!this.channel) {
+                        console.log("channnel sjsjsjj");
+                        await this.createChannel()
+                    }
+                    channel.nack(msg, false, false);
                 }
             })
         } catch (error) {
