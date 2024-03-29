@@ -2,8 +2,9 @@ import Box from '@mui/system/Box';
 import FormField from '../../components/FormField/FormField';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import signupPic from '../../assets/images/singupPic.png'
 import {FormData, UserSchema} from './types';
+import { Button, Paper, Stack, Typography } from '@mui/material';
 
 export default function Signup(){
     // const handleSubmit = async(e: React.MouseEvent<HTMLElement>) => {
@@ -32,24 +33,62 @@ export default function Signup(){
     }
     
     return (
-        <Box>
+        <Box
+        sx={{
+            width: "100%",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            bgcolor: "#f9fafb",
+          }}>
            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="grid col-auto">
-                
-                <FormField
-                    type="text"
-                    placeholder="Email"
-                    name="email"
-                    register={register}
-                    error={errors.email}
+                <Paper
+                sx={{
+                width: "55vw",
+                height: "80vh",
+                display: "flex",
+                alignItems: "center",
+                p: 3,
+                }}
+            >
+                <Box
+                sx={{
+                    width: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+                >
+                <img
+                    src={signupPic}
+                    alt="SignupPage"
+                    style={{width:"70%"}}
                 />
-
+                </Box>
+                <Stack
+                width={"50%"}
+                alignItems={"flex-start"}
+                justifyContent={"center"}
+                >
+                <Typography sx={{ fontSize: "20px", fontWeight: "bold", mb: 4 }}>
+                    Create your Free Account
+                </Typography>
+                
                 <FormField
                     type="text"
                     placeholder="Name"
                     name="name"
                     register={register}
                     error={errors.name}
+                />
+
+                <FormField
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    register={register}
+                    error={errors.email}
                 />
 
                 <FormField
@@ -67,10 +106,28 @@ export default function Signup(){
                     register={register}
                     error={errors.confirmPassword}
                 />
-                <button type="submit" className="submit-button">
+                {/* <button type="submit" className="submit-button">
                     Submit
-                </button>
-                </div>
+                </button> */}
+            
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        sx={{
+                        textTransform: "none",
+                        borderRadius: "10px",
+                        fontSize: "16px",
+                        width: "90%",
+                        fontWeight: "500",
+                        boxShadow: "none",
+                        mb: 4,
+                    }}
+                >
+                    Create Account
+                </Button>
+                </Stack>
+            </Paper>
             </form>
         </Box>
     );

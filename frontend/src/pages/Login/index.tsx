@@ -1,30 +1,30 @@
-import { Button, Divider, FormControl, Input, InputAdornment, InputLabel, Link, MenuItem, OutlinedInput, Select, Stack, TextField, Typography } from "@mui/material";
-import './Login.css'
+import { Button, Divider, FormControl, Input, InputAdornment, InputLabel, Link, MenuItem, OutlinedInput, Paper, Select, Stack, TextField, Typography } from "@mui/material";
 import Box from '@mui/system/Box';
 // import PasswordAdornments from "../../components/PasswordInput";
 import {  useSelector } from "react-redux";
 import { useState } from "react";
-import { login } from '../../features/auth/auth.action';
-import { useNavigate } from "react-router-dom";
-import Snackbar from '@mui/material/Snackbar';
+import { zodResolver } from "@hookform/resolvers/zod";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import * as React from 'react';
 import { RootState} from '../../app/store';
 import {  useAppDispatch } from '../../app/hooks'
-
+import { useForm } from "react-hook-form";
+import { LoginSchema, LoginFormData} from './types';
+import FormField from '../../components/FormField/FormField';
+import LoginPic from '../../assets/images/loginPic.png'
 
 function Login(){
     
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    // const [email, setEmail] = useState<string>("");
+    // const [password, setPassword] = useState<string>("");
     const [open, setOpen] = useState<boolean>(false);
-    const [checkPass, setCheckPass] = useState<boolean>(false);
-    const [role, setRole] = useState<string>('USER')
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const isLoading = useSelector((state : RootState )=> state.user.isLoading);
-    const error = useSelector((state : RootState )=> state.user.error);
+    // const [checkPass, setCheckPass] = useState<boolean>(false);
+    // const [role, setRole] = useState<string>('USER')
+    // const dispatch = useAppDispatch();
+    // const navigate = useNavigate();
+    // const isLoading = useSelector((state : RootState )=> state.user.isLoading);
+    // const error = useSelector((state : RootState )=> state.user.error);
 
     const handleClose = () => {
         setOpen(false);
@@ -43,118 +43,117 @@ function Login(){
         </React.Fragment>
     );
 
-    const handleSubmit = async(e: React.MouseEvent<HTMLElement>) => {
-        dispatch(login({email, password, role})).then((response: any)=> {
-            if(!response.payload) {
-                console.log(response.error.message,'error');
-                setEmail("");
-                setPassword("");
-                // add snackbar showing wrong credentials
-                setOpen(true);
+    // const handleSubmit = async(e: React.MouseEvent<HTMLElement>) => {
+    //     dispatch(login({email, password, role})).then((response: any)=> {
+    //         if(!response.payload) {
+    //             console.log(response.error.message,'error');
+    //             setEmail("");
+    //             setPassword("");
+    //             // add snackbar showing wrong credentials
+    //             setOpen(true);
 
-                navigate("/Login");
-            }
-            else {
-                localStorage.setItem("token", response.payload.user.token);
-                navigate('/Home');
-            }
-        });
-        if(isLoading) return "Loading....";
+    //             navigate("/Login");
+    //         }
+    //         else {
+    //             localStorage.setItem("token", response.payload.user.token);
+    //             navigate('/Home');
+    //         }
+    //     });
+    //     if(isLoading) return "Loading....";
+    // }
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm<LoginFormData>({
+        resolver: zodResolver(LoginSchema), // Apply the zodResolver
+    });
+
+    const onSubmit = async (data: LoginFormData) => {
+        console.log("SUCCESS", data);
     }
 
     return (
-        <Box  sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh", backgroundColor:"grey"}}>
-            
-                <Stack className="signin-form" sx={{mb:"20px"}}>
-                    <Stack
-                    direction="column"
-                    sx={{display:'flex', flexDirection:"column"}}
-                    justifyContent="space-between"
-                    alignItems="center"
-                    className="login-form"
-                    >
-                    <Typography
-                        align="center"
-                        sx={{
-                        width: "100%",
-                        mb:"20px",
-                        fontWeight: "600",
-                        fontSize: "40px",
-                        }}
-                    >
-                        Sign in
-                    </Typography>
-                    
-                    <Box sx={{width:"100%"}}>
-                    <InputLabel htmlFor="outlined-adornment-password">Email</InputLabel>
-                    <OutlinedInput
-                        id="outlined-adornment-password"
-                        type="text"
-                        sx={{width:"100%",
-                        "& .MuiFilledInput-root": {
-                        height: '52px',
-                        background: "white",
-                        border: "1px solid black",
-                        mb:"20px",
-                        '&.Mui-focused fieldset': {
-                            border: 'none',
-                            },
-                        '&:hover fieldset': {
-                            border: 'none',
-                        },
-                        }
-                        }}
-                        value={email}
-                        onChange={(e)=> setEmail(e.target.value)}
-                    />
-                    </Box>
-                    {/* <PasswordAdornments password = {password} setPassword = {setPassword} setCheckPass ={setCheckPass}/> */}
-                    
-
-                    <Button
-                        variant="contained"
-                        sx={{
-                        textTransform: "capitalize",
-                        width: "100%",
-                        boxShadow: "none",
-                        height: "min-content",
-                        minHeight: "48px",
-                        borderRadius: "28px",
-                        padding: "10px 24px 10px 24px",
-                        textAlign: "center",
-                        fontSize: "16px",
-                        fontWeight: 500,
-                        marginTop: "20px",
-                        backgroundColor: "black",
-                        }}
-                        type="submit"
-                        onClick={(e)=> handleSubmit(e)}
-                    >
-                        Sign in
-                    </Button>
-                        <FormControl >
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={role}
-                            onChange={(e)=> setRole(e.target.value)}
-                            sx={{mt:"20px"}}
-                        >
-                            <MenuItem value={'STUDENT'}>STUDENT</MenuItem>
-                            <MenuItem value={'LIBRANIAN'}>LIBRANIAN</MenuItem>
-                        </Select>
-                        </FormControl>
-                    </Stack>
-                </Stack>
-                <Snackbar
-                    open={open}
-                    autoHideDuration={3000}
-                    onClose={handleClose}
-                    message="Invalid credentials"
-                    action={action}
+        <Box
+        sx={{
+            width: "100%",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            bgcolor: "#f9fafb",
+          }}>
+           <form onSubmit={handleSubmit(onSubmit)}>
+                <Paper
+                sx={{
+                width: "55vw",
+                height: "80vh",
+                display: "flex",
+                alignItems: "center",
+                p: 3,
+                }}
+            >
+                <Box
+                sx={{
+                    width: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+                >
+                <img
+                    src={LoginPic}
+                    alt="SignupPage"
+                    style={{width:"70%"}}
                 />
-           
+                </Box>
+                <Stack
+                width={"50%"}
+                alignItems={"flex-start"}
+                justifyContent={"center"}
+                >
+                <Typography sx={{ fontSize: "20px", fontWeight: "bold", mb: 4 }}>
+                    Sign In
+                </Typography>
+                
 
+                <FormField
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    register={register}
+                    error={errors.email}
+                />
+
+                <FormField
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    register={register}
+                    error={errors.password}
+                />
+
+            
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        sx={{
+                        textTransform: "none",
+                        borderRadius: "10px",
+                        fontSize: "16px",
+                        width: "90%",
+                        fontWeight: "500",
+                        boxShadow: "none",
+                        mb: 4,
+                    }}
+                >
+                    Sign In
+                </Button>
+                </Stack>
+            </Paper>
+            </form>
         </Box>
     );
 }
