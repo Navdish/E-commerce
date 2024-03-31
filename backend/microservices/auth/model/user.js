@@ -6,7 +6,7 @@ const User = mongoose.Schema({
         required: true,
     },
     uuid: {
-        type: String, 
+        type: String,
     },
     email: {
         type: String,
@@ -18,16 +18,28 @@ const User = mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['USER', 'RETAILER' ,'ADMIN']
+        enum: ['USER', 'RETAILER', 'ADMIN'],
+        default: 'USER'
     },
     status: {
         type: String,
-        enum: ['ACTIVE', 'INACTIVE']
+        enum: ['ACTIVE', 'INACTIVE'],
+        default: 'ACTIVE'
     },
+    language :[{
+        type: String,
+    }],
     tempStatus: {
         type: String,
         enum: ['PENDING', 'SUCCESS']
-    }
+    },
+    interest : [{
+        type: String,
+    }],
+    address : {
+        type: Object
+    },
+    phone : Number
 }, {timestamps: true})
 
 

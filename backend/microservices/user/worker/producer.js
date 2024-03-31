@@ -18,7 +18,7 @@ class Producer {
             if (!this.channel) {
                 await this.createChannel()
             }
-            await this.channel.assertExchange(exchangeName, 'fanout', {durable: false});
+            await this.channel.assertExchange(exchangeName, 'fanout');
             const user = data;
             const properties = { type: signature };
             console.log("producer signature is ", signature, "Exchange is ", exchangeName);

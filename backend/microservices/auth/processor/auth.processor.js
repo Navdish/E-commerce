@@ -2,11 +2,12 @@ const {authService} = require('../service');
 
 exports.createUser = async (data)=>{
     try {
+      console.log("processor", data)
       const user = await authService.subCreateUser(data);
-      res.status(201).json({message : "user added successfully"})
+      return ({message : "user added successfully"})
     }
     catch (error) {
-      res.status(error?.code).json({message : error?.message});
+      return ({message : error?.message});
     }
 }
 

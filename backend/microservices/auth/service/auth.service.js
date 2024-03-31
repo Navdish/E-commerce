@@ -8,19 +8,20 @@ const Producer = require('../worker/producer.js');
 const publisher = new Producer();
 
 exports.create = async({data})=> {
+    console.log("signup", data);
     const {name, email, password} = data;
     if(!(name && email && password)) throw new CustomError("User credentials not found", 422);
     const user = await User.findOne({email});
     if(user) throw new CustomError("email already exists", 409);
-    try {
-        await publisher.sentMsg(data, 'user_registered');
-    } catch (error) {
-        console.log("error :-  (error in the user service)", error)
-    }
     const hash = await bcrypt.hash(password, saltRounds);
     if(!hash) throw new CustomError("hash not created", 500);
     const response = await User.create({ name, email, password : hash, tempStatus: 'PENDING'});
     if(!response) throw new CustomError("internal server error", 500)
+    try {
+        await publisher.sentMsg(response, 'user_registered');
+    } catch (error) {
+        console.log("error :-  (error in the user service)", error)
+    }
     return {message : "successful trial"};
 }
 
@@ -39,17 +40,19 @@ exports.login = async function({data}) {
     return {token, user};
 }
 
-exports.subCreateUser = async({data}) => {
-    const {uuid} = data;
-    const user = User.findOneAndUpdate({uuid}, data, {new: true});
+exports.subCreateUser = async(data) => {
+    const email = data.email;
+    console.log("user data ------",data);
+    
+    const user = await User.findOneAndUpdate({email}, {...data, tempStatus: 'SUCCESS'}, {new: true});
     if(!user) throw new CustomError("Internal server error", 500);
-    console.log(user);
+    console.log("user------",user);
     return user;
 }
 
 exports.subUpdateUser = async(data) => {
     const {uuid} = data;
-    const user = User.findOneAndUpdate({uuid}, data, {new: true});
+    const user = await User.findOneAndUpdate({uuid}, data, {new: true});
     if(!user) throw new CustomError("Internal server error", 500);
     console.log(user);
     return user;
@@ -57,7 +60,7 @@ exports.subUpdateUser = async(data) => {
 
 exports.subUpdateUserStatus = async(data) => {
     const {uuid} = data;
-    const user = User.findOneAndUpdate({uuid}, data, {new: true});
+    const user = await User.findOneAndUpdate({uuid}, data, {new: true});
     if(!user) throw new CustomError("Internal server error", 500);
     console.log(user);
     return user;
@@ -65,7 +68,7 @@ exports.subUpdateUserStatus = async(data) => {
 
 exports.subDeleteUser = async(data) => {
     const {uuid} = data;
-    const user = User.findOneAndUpdate({uuid}, {status: 'INACTIVE'}, {new: true});
+    const user = await User.findOneAndUpdate({uuid}, {status: 'INACTIVE'}, {new: true});
     if(!user) throw new CustomError("Internal server error", 500);
     console.log(user);
     return user;

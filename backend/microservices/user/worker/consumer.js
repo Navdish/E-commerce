@@ -1,5 +1,5 @@
 const amqp = require('amqplib');
-const exchangeName = 'userExchange';
+const exchangeName = 'authExchange';
 const { userProcessor } = require('../processor');
 
 const mapper = {
@@ -23,25 +23,29 @@ class Consumer {
                 await this.createChannel()
             }
             console.log("Starting the consumer ....")
-            await this.channel.assertExchange(exchangeName, 'fanout', {durable: false});
-            const q = await this.channel.assertQueue('userQueue', {exclusive: true});
+            await this.channel.assertExchange(exchangeName, 'fanout');
+            const q = await this.channel.assertQueue('userQueue',  {durable: true});
             // got to processor 
             this.channel.bindQueue(q.queue, exchangeName, ''); // routing key
             this.channel.consume(q.queue, async(message) => {
                 if(message.content) console.log(" the message is : ", message?.content?.toString());
                 const signature = message?.properties?.type;
-                if(signature){
+                if(signature  && mapper[signature]){
                     try {
                         const data = JSON.parse(message?.content?.toString());
                         await mapper[signature](data.user);
                         console.log("pritam ka kuch")
-                        channel.ack(message);
+                        this.channel.ack(message);
                     } catch (error) {  
                         console.log("wwwwwwwwtttttttttffffffff",error.message);
-                        channel.nack(message, false, false);
+                        this.channel.nack(message, false, false);
                     }
                 }
-            })
+                else {
+                    console.log("Ignore");
+                    // this.channel.nack(message, false, false);
+                }
+            }, {noAck: false})
         } catch (error) {
             console.log(error, "connection not created..");
         }

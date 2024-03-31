@@ -1,5 +1,5 @@
 const amqp = require('amqplib');
-const exchangeName = 'userExchange';
+const exchangeName = 'authExchange';
 const { v4: uuidv4 } = require('uuid');
 
 class Producer {
@@ -18,7 +18,7 @@ class Producer {
             if (!this.channel) {
                 await this.createChannel()
             }
-            await this.channel.assertExchange(exchangeName, 'fanout', {durable: false});
+            await this.channel.assertExchange(exchangeName, 'fanout');
             const user = data;
             const properties = { type: signature };
             const message = { uuid: uuidv4(), user: user, firedAt: new Date()}

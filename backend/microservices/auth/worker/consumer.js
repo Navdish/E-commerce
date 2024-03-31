@@ -25,8 +25,8 @@ class Consumer {
             if (!this.channel) {
                 await this.createChannel()
             }
-            await this.channel.assertExchange(exchangeName, 'fanout', {durable: false});
-            const q = await this.channel.assertQueue('authQueue', {exclusive: true});
+            await this.channel.assertExchange(exchangeName, 'fanout');
+            const q = await this.channel.assertQueue('authQueue',  {durable: true});
             // got to processor 
             this.channel.bindQueue(q.queue, exchangeName, ''); // routing key
             console.log("queue name is ",q.queue);
@@ -39,22 +39,19 @@ class Consumer {
                     try {
                         const data = JSON.parse(message?.content?.toString());
                         console.log("user details",data.user);
-                        await mapper[signature](data.user);
-                        channel.ack(message);
+                        const res = await mapper[signature](data.user);
+                        this.channel.ack(message);
+                        console.log("console after emitting the message")
                     } catch (error) {
                         console.log("authh",error.message);
-                        channel.nack(message, false, false);
+                        this.channel.nack(message, false, false);
                     }
                 }
                 else {
                     console.log("Ignore");
-                    if (!this.channel) {
-                        console.log("channnel sjsjsjj");
-                        await this.createChannel()
-                    }
-                    channel.nack(msg, false, false);
+                    // this.channel.nack(message, false, false);
                 }
-            })
+            }, {noAck: false});
         } catch (error) {
             console.log(error, "connection not created..");
         }
