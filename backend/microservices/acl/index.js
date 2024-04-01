@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require("dotenv").config();
 const app = express();
-const roledb = require('./Roledb');
+const roles = require('./Roledb');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.text());
@@ -13,8 +13,8 @@ app.use('/uploads', express.static('uploads'))
 app.post('/acl', (req, res) => {
     const { role, service, access } = req.body;
     // Check if the role exists in the roledb
-    if (roledb.hasOwnProperty(role)) {
-        const roleData = roledb[role];
+    if (roles.hasOwnProperty(role)) {
+        const roleData = roles[role];
         // Check if the service exists for the given role
         if (roleData.hasOwnProperty(service) && Array.isArray(roleData[service])) {
             const ans = roleData[service].includes(access);

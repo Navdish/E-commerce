@@ -1,22 +1,28 @@
-const roledb = {
-    "User": {
+const roles = {
+    "USER": {
         "product": [2],
         "orders": [1, 2, 3, 4],
         "cart": [1, 2, 3, 4],
         "delivery": [],
     },
-    "Admin": {
+    "ADMIN": {
         "product": [1, 2, 3, 4],
-        "orders": [3],
+        "orders": [4],
         "cart": [],
         "delivery": [1, 2, 3, 4], 
     },
-    "Vendor": {
+    "VENDOR": {
         "product": [1, 2, 3, 4],
         "orders": [],
         "cart": [],
         "delivery": [],
     }
 }
-module.exports = roledb;
-// 1-post 2-get 3-delete 4-put
+module.exports = roles;
+
+// {
+//     1: POST,
+//     2: GET,
+//     3: PUT,
+//     4: DELETE
+// }
