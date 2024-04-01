@@ -1,0 +1,200 @@
+openapi: "3.0.0"
+info:
+  title: Ecommerce-Microservice
+
+  version: "1.0.0"
+  description: Delivery Service
+servers:
+  - url: http://localhost:8080/
+paths:
+  /deliver:
+    post:
+      tags:
+        - Delivery for admin
+      summary: Assign order to a particular delivery boy
+      description: Add deelivery entry
+      requestBody:
+        description: Request to add delivery for order of user
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeliverySchema"
+        required: true
+      responses:
+        "201":
+          description: Entry created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeliverySchema"
+        "401":
+          description: All data is not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: OrderId is required
+        "409":
+          description: Order doesn't exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Order doesn't exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /delivery/orders:
+    get:
+      tags:
+        - Delivery for admin
+      summary: Admin gets all list of orders
+      description: User gets all list of orders
+      responses:
+        "200":
+          description: All orders data fetched
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /delivery/users:
+    get:
+      tags:
+        - Delivery for admin
+      summary: Admin gets all list of delivery boys
+      description: User gets all list of delivery boys
+      responses:
+        "200":
+          description: All user data fetched
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /delivery:
+    get:
+      tags:
+        - Delivery for Delivery boy
+      summary: Delivery boy gets all list of his delivery
+      description: Delivery boy gets all list of his delivery
+      responses:
+        "200":
+          description: All delivery data fetched
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      tags:
+        - Delivery for Delivery boy
+      summary: Update the delivery status
+      description: Update the delivery status
+      responses:
+        "200":
+          description: Status is updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeliverySchema"
+        "409":
+          description: Delivery doesn't exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Delivery doesn't exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+components:
+  schemas:
+    DeliverySchema:
+      type: object
+      properties:
+        orderId:
+          type: string
+        userId:
+          type: string
+        status:
+          type: boolean

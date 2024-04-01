@@ -1,0 +1,272 @@
+openapi: "3.0.0"
+info:
+  title: Ecommerce-Microservice
+
+  version: "1.0.0"
+  description: Product Service
+servers:
+  - url: http://localhost:8080/
+paths:
+  /product/vendor:
+    get:
+      tags:
+        - Product Vendor
+      summary: Get all products of vendor
+      description: Get all products added by vendor
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      tags:
+        - Product Vendor
+      summary: Add a new product
+      description: Add a new product
+      requestBody:
+        description: Request to add new product
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductSchema"
+        required: true
+      responses:
+        "201":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductSchema"
+        "401":
+          description: All data is not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Amount is missing
+
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /product/vendor?productId:
+    put:
+      tags:
+        - Product Vendor
+      summary: Edit the products details
+      description: Edit the products details
+      requestBody:
+        description: Request to edit product
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductSchema"
+        required: true
+      responses:
+        "201":
+          description: Product edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductSchema"
+        "409":
+          description: Product id doesnot exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No record exist for this
+
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    delete:
+      tags:
+        - Product Vendor
+      summary: Delete the product
+      description: Delete the product
+      responses:
+        "201":
+          description: Product deleted successfully
+        "409":
+          description: Product id doesnot exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No record exist for this
+
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /product:
+    get:
+      tags:
+        - Product For Customer
+      summary: Get all products to display to user
+      description: Get all products
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /product?category:
+    get:
+      tags:
+        - Product For Customer
+      summary: Get all products to display to user according to the category
+      description: Get all products
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /product?productId:
+    get:
+      tags:
+        - Product For Customer
+      summary: Get product by id
+      description: Get a product by its id
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+components:
+  schemas:
+    ProductSchema:
+      type: object
+      properties:
+        retailerId:
+          type: string
+        name:
+          type: string
+        desc:
+          type: string
+        price:
+          type: number
+        stock:
+          type: number
+        category:
+          type: string
+        size:
+          type: number
+        images:
+          type: array
+          items:
+            type: string
