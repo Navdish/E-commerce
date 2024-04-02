@@ -10,18 +10,6 @@ import { createUser } from '../../features/auth/auth.action';
 import { useNavigate } from 'react-router-dom';
 
 export default function Signup(){
-    // const handleSubmit = async(e: React.MouseEvent<HTMLElement>) => {
-    //     e.preventDefault();
-    //     console.log(checkEmail, checkPass, checkName);
-    //     if(!(checkEmail &&checkPass && checkName)){
-    //         alert('Enter Valid Credentials')
-    //     }
-    //     else{
-    //         dispatch(createUser({name, email, password})).then((response)=> {
-    //             if(response.payload) navigate("/Login");
-    //         });
-    //     }
-    // };   
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     

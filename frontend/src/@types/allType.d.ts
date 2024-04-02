@@ -7,6 +7,7 @@ type FormData = {
     name: string;
     password: string;
     confirmPassword: string;
+    role: string;
   };
 
 type FormFieldProps = {
@@ -18,9 +19,9 @@ type FormFieldProps = {
     valueAsNumber?: boolean;
   };
   
-type ValidFieldNames =
-  | "email"
-  | "name"
-  | "password"
-  | "confirmPassword";
+// type ValidFieldNames =
+//   | "email"
+//   | "name"
+//   | "password"
+//   | "confirmPassword";
 

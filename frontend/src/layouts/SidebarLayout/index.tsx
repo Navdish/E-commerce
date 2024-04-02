@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { FC, ReactNode } from 'react'
 import { Outlet } from 'react-router-dom';
 
@@ -12,12 +12,12 @@ interface SidebarLayoutProps {
 const SidebarLayout: FC<SidebarLayoutProps> = () => {
     return (
         <>
-            <Box sx={{display: 'flex', backgroundColor:"#F6F8FF"}}>
+            <Box sx={{display:'grid',width:"100vw",height:"100vh",gridTemplateColumns:'20% 80%', backgroundColor:"#F6F8FF"}}>
                 <Sidebar/>
-                <Box >
+                <Stack width={'100%'} >
                     <Header/>
                     <Outlet />
-                </Box>
+                </Stack>
             </Box>
         </>
     )

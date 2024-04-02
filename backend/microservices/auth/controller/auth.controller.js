@@ -12,6 +12,7 @@ exports.createUser = async (req, res)=>{
 
 exports.loginUser = async (req, res)=>{
     try {
+      console.log("Inside controlller login")
       const user = await authService.login({data : req?.body});
       res.status(200).json({user, message: "user loggedin successfully"});
     }

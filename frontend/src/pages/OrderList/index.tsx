@@ -6,7 +6,7 @@ import EnhancedTable from './OrderListMain';
 
 const OrderList: FC = () => {
     return (
-        <Stack p={4} sx={{ backgroundColor: 'rgb(246, 248, 255)' }} >
+        <Stack p={4} sx={{width:"100%", backgroundColor: 'rgb(246, 248, 255)' }} >
             <OrderListHeader/>
             <EnhancedTable/>
         </Stack>

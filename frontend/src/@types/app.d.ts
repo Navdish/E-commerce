@@ -4,9 +4,16 @@ type ValidFieldNames =
   | "name"
   | "password"
   | "confirmPassword"
+  | "role"
 
-  type userProps = {
+type userProps = {
     name: string
     email: string
     role: string
+}
+
+type loginProps = {
+  email: string
+  password: string
+  role: string
 }

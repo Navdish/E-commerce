@@ -348,9 +348,9 @@ export default function EnhancedTable() {
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: 700 }}
             aria-labelledby="tableTitle"
-            size={'medium'}
+            width="100%"
           >
             <EnhancedTableHead
               numSelected={selected.length}

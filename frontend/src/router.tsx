@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { RootState} from './app/store';
 import {Navigate } from 'react-router-dom'
 import * as React from "react";
+import Dashboard from "./pages/Dashboard";
 
 interface ProtectedProps  { 
     children: React.ReactNode
@@ -29,7 +30,7 @@ const Protected = (props : ProtectedProps) => {
 const Private = (props : ProtectedProps) => {
     const token = localStorage.getItem('token');
     const user = useSelector((state: RootState)=> state?.user?.user);
-    return token && user?.role !== 'ADMIN' ? <Navigate to="/" /> : <>{props.children}</>;
+    return token && user?.role !== 'VENDOR' ? <Navigate to="/" /> : <>{props.children}</>;
 };
 const Public = (props : ProtectedProps) => {
     const user = useSelector((state: RootState)=> state?.user?.user);
@@ -60,14 +61,18 @@ const routes: RouteObject[] = [
             element: <Protected><SidebarLayout /></Protected>,
             children: [
                 {
+                    path: '',
+                    element: <Home />
+                },
+                {
+                    path: 'dashboard',
+                    element: <Dashboard />
+                },
+                {
                     path: 'setting',
                     element: <Settings />
                 },
                 
-                {
-                    path: '',
-                    element: <Home />
-                },
                 {
                     path: 'logout',
                     element: <Settings />
