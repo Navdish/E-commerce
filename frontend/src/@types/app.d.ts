@@ -15,5 +15,4 @@ type userProps = {
 type loginProps = {
   email: string
   password: string
-  role: string
 }

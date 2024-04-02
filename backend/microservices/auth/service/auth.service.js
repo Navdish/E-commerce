@@ -9,13 +9,13 @@ const publisher = new Producer();
 
 exports.create = async({data})=> {
     console.log("signup", data);
-    const {name, email, password} = data;
+    const {name, email, password, role} = data;
     if(!(name && email && password)) throw new CustomError("User credentials not found", 422);
     const user = await User.findOne({email});
     if(user) throw new CustomError("email already exists", 409);
     const hash = await bcrypt.hash(password, saltRounds);
     if(!hash) throw new CustomError("hash not created", 500);
-    const response = await User.create({ name, email, password : hash, tempStatus: 'PENDING'});
+    const response = await User.create({ name, email, password : hash, tempStatus: 'PENDING', role});
     if(!response) throw new CustomError("internal server error", 500)
     try {
         await publisher.sentMsg(response, 'user_registered');

@@ -124,12 +124,12 @@ function Login() {
                             error={errors.password}
                         />
 
-                        <select {...register("role")} style={{margin:"10px", border:"1px solid transparent", padding:"10px"}}
+                        {/* <select {...register("role")} style={{margin:"10px", border:"1px solid transparent", padding:"10px"}}
                         >
                             <option value="USER">USER</option>
                             <option value="VENDOR">VENDOR</option>
                             <option value="ADMIN">ADMIN</option>
-                        </select>
+                        </select> */}
 
 
 

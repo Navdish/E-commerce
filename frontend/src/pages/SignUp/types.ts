@@ -7,6 +7,7 @@ export type FormData = {
     name: string;
     password: string;
     confirmPassword: string;
+    role: string;
   };
 
   export type FormFieldProps = {
@@ -22,7 +23,8 @@ export type FormData = {
   | "email"
   | "name"
   | "password"
-  | "confirmPassword";
+  | "confirmPassword"
+  | "role";
 
 export const UserSchema = z
   .object({
@@ -33,6 +35,7 @@ export const UserSchema = z
       .min(8, { message: "Password is too short" })
       .max(20, { message: "Password is too long" }),
     confirmPassword: z.string(),
+    role: z.enum(["USER", "VENDOR"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
