@@ -14,7 +14,7 @@ const SidebarLayout: FC<SidebarLayoutProps> = () => {
         <>
             <Box sx={{display:'grid',width:"100vw",height:"100vh",gridTemplateColumns:'20% 80%', backgroundColor:"#F6F8FF"}}>
                 <Sidebar/>
-                <Stack width={'100%'} >
+                <Stack width={'100%'} sx={{boxSizing:"border-box"}} >
                     <Header/>
                     <Outlet />
                 </Stack>

@@ -104,7 +104,7 @@ function Sidebar() {
     };
     return (
       <>
-        <Box className='inside-box' sx={{minWidth:"40px",  borderRight:"1px solid #E6E6E6", minHeight: '100vh', backgroundColor:'white', zIndex:"1", display:"flex", flexDirection:"column", alignItems:"center"}}>
+        <Box className='inside-box' sx={{width:"100%",  borderRight:"1px solid #E6E6E6", minHeight: '100vh', backgroundColor:'white', zIndex:"1", display:"flex", flexDirection:"column", alignItems:"center"}}>
         {/* <Toolbar>
             <IconButton
               color="inherit"

@@ -6,7 +6,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 function Header() {
   return (
     <>
-      <Box sx={{ minWidth:"77.50vw",  height: '90px', backgroundColor:'white'}}>
+      <Box sx={{ width:"100%",  height: '90px', backgroundColor:'white'}}>
         <Stack height={"90px"} sx={{bgcolor:"white"}} justifyContent={"center"}  >
             <Stack justifyContent="space-between" direction={"row"}>
                 <Stack justifyContent={"flex-start"}>

@@ -5,7 +5,7 @@ import { LineChart } from '@mui/x-charts/LineChart';
 
 function SideGraph() {
     return (
-        <Stack width={'60%'} p={2} sx={{ backgroundColor: 'white', borderRadius: '10px' }} gap={1}>
+        <Stack width={'60%'} p={2} sx={{ backgroundColor: 'white', borderRadius: '10px', boxSizing:"border-box" }} gap={1}>
             <Stack direction={'row'} gap={1} justifyContent={'space-between'}>
                 <Box fontWeight={'600'}>Sale Graph</Box>
                 <Stack direction={'row'} gap={1}>

@@ -16,7 +16,7 @@ function Dashboard() {
                 <DashboardTopCard icon={<ShoppingBagIcon />} header={'Complete Orders'} line1={''} line2={''} line3={''} />
                 <DashboardTopCard icon={<ShoppingBagIcon />} header={'Return Orders'} line1={''} line2={''} line3={''} />
             </Box>
-            <Stack direction={'row'} gap={2}>
+            <Stack direction={'row'} gap={0}>
                 <SideGraph />
                 <BestSellers />
             </Stack>
